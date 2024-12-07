@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/xingyunyang01/ginTools/pkg/services"
 )
@@ -38,9 +40,9 @@ func (r *ResourceCtl) Delete() func(c *gin.Context) {
 }
 
 func (r *ResourceCtl) Create() func(c *gin.Context) {
+	fmt.Println("create")
 	return func(c *gin.Context) {
 		var resource = c.Param("resource")
-		ns := c.DefaultQuery("ns", "default")
 
 		type ResouceParam struct {
 			Yaml string `json:"yaml"`
@@ -52,7 +54,7 @@ func (r *ResourceCtl) Create() func(c *gin.Context) {
 			return
 		}
 
-		err := r.resourceService.CreateResource(resource, ns, param.Yaml)
+		err := r.resourceService.CreateResource(resource, param.Yaml)
 		if err != nil {
 			c.JSON(400, gin.H{"error": "创建失败：" + err.Error()})
 			return

@@ -40,6 +40,16 @@ func (k *K8sConfig) InitRestConfig(optfuncs ...K8sConfigOptionFunc) *K8sConfig {
 	return k
 }
 
+func (k *K8sConfig) InitConfigInCluster() *K8sConfig {
+	// 加载 in-cluster 配置
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		k.e = errors.Wrap(errors.New("k8s config is nil"), "init k8s client failed")
+	}
+	k.Config = config
+	return k
+}
+
 func (k *K8sConfig) Error() error {
 	return k.e
 }

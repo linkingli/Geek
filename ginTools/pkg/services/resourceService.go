@@ -49,14 +49,14 @@ func (r *ResourceService) DeleteResource(resourceOrKindArg string, ns string, na
 	return nil
 }
 
-func (r *ResourceService) CreateResource(resourceOrKindArg string, ns string, yaml string) error {
+func (r *ResourceService) CreateResource(resourceOrKindArg string, yaml string) error {
 	obj := &unstructured.Unstructured{}
 	_, _, err := scheme.Codecs.UniversalDeserializer().Decode([]byte(yaml), nil, obj)
 	if err != nil {
 		return err
 	}
 
-	ri, err := r.getResourceInterface(resourceOrKindArg, ns, r.client, r.restMapper)
+	ri, err := r.getResourceInterface(resourceOrKindArg, obj.GetNamespace(), r.client, r.restMapper)
 	if err != nil {
 		return err
 	}

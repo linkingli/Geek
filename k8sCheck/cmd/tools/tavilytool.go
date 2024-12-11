@@ -75,7 +75,7 @@ type FinalResult struct {
 // Run 执行命令并返回输出。
 func (k *TavilyTool) Run(query string) ([]FinalResult, error) {
 	url := "https://api.tavily.com/search"
-	apiKey := "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"
+	apiKey := "tvly-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 	params := RequestParams{
 		APIKey:      apiKey,
 		Query:       query,

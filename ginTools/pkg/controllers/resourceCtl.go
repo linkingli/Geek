@@ -63,3 +63,17 @@ func (r *ResourceCtl) Create() func(c *gin.Context) {
 		}
 	}
 }
+
+func (r *ResourceCtl) GetGVR() func(c *gin.Context) {
+	return func(c *gin.Context) {
+		var resource = c.Query("resource")
+
+		gvr, err := r.resourceService.GetGVR(resource)
+		if err != nil {
+			c.JSON(400, gin.H{"error": "资源错误：" + err.Error()})
+			return
+		} else {
+			c.JSON(200, gin.H{"data": *gvr})
+		}
+	}
+}

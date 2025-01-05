@@ -68,6 +68,15 @@ func (r *ResourceService) CreateResource(resourceOrKindArg string, yaml string) 
 	return nil
 }
 
+func (r *ResourceService) GetGVR(resourceOrKindArg string) (*schema.GroupVersionResource, error) {
+	restMapping, err := r.mappingFor(resourceOrKindArg, r.restMapper)
+	if err != nil {
+		return nil, err
+	}
+
+	return &restMapping.Resource, nil
+}
+
 // getResourceInterface 根据资源类型或名称和命名空间返回相应的资源接口
 func (r *ResourceService) getResourceInterface(resourceOrKindArg string, ns string, client dynamic.Interface, restMapper *meta.RESTMapper) (dynamic.ResourceInterface, error) {
 	var ri dynamic.ResourceInterface

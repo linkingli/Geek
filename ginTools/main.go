@@ -23,6 +23,7 @@ func main() {
 	r.GET("/:resource", resourceCtl.List())
 	r.DELETE("/:resource", resourceCtl.Delete())
 	r.POST("/:resource", resourceCtl.Create())
+	r.GET("/get/gvr", resourceCtl.GetGVR())
 	r.GET("/pods/logs", podLogCtl.GetLog())
 	r.GET("/pods/events", podLogCtl.GetEvent())
 

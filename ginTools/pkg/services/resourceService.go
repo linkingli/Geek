@@ -60,7 +60,11 @@ func (r *ResourceService) CreateResource(resourceOrKindArg string, yaml string) 
 	if err != nil {
 		return err
 	}
-
+	
+	if obj.GetNamespace() == "" {
+		obj.SetNamespace("default")
+	}
+	
 	_, err = ri.Create(context.Background(), obj, metav1.CreateOptions{})
 	if err != nil {
 		return err
